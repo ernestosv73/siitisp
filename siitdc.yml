@@ -1,0 +1,90 @@
+name: siitisp
+
+  
+topology:
+  nodes:
+    # switch Nokia SRL
+    # srl1:
+    #  kind: nokia_srlinux
+    #  image: ghcr.io/nokia/srlinux:23.10.1
+    #  type: ixrd3
+    #  startup-config: srlsw/config.json
+    # router red ipv6 only
+    rtinetipv6:
+      kind: linux
+      image: quay.io/frrouting/frr:8.4.1
+      binds:
+        - rtinetipv6/daemons:/etc/frr/daemons
+        - rtinetipv6/frr.conf:/etc/frr/frr.conf
+      exec:
+       - "sysctl -w net.ipv6.conf.all.forwarding=1" 
+       - ip -6 route del default dev eth0
+    # CPE 
+    openwrt:
+      kind: linux
+      image: vrnetlab/vr-openwrt:23.05.3
+      # mgmt-ipv4: 172.20.20.12
+      # mgmt-ipv6: 2001:172:20:20::12
+      ports:
+        - 8080:80
+        - 8443:443
+              
+      env:
+        USERNAME: root #(default)
+        PASSWORD: VR-netlab9 #(default is VR-netlab9)
+        CONNECTION_MODE: tc #(default)  
+
+    # Servidor IPv6
+    SRV1:
+      kind: linux
+      image: esanchezv/ubuntu2204:latest
+      exec:
+      - ip -6 route del default dev eth0
+      - ip -6 addr add 2001:db8:dc::50/64 dev eth1
+      # ruta a la red ipv6 only
+      - ip -6 route add 2001:db8::/64 via 2001:db8:dc::1
+      # ruta a la red para traducción IPv4 IPv6 
+      - ip -6 route add 64:ff9b::/96 via 2001:db8:dc::2
+
+      
+    SRVSIIT:
+      kind: linux
+      image: ubuntu:22.04
+      exec:
+       - ip -6 route del default dev eth0
+       
+       - ip -6 addr add 2001:db8:dc::2/64 dev eth1
+       
+       - ip addr add 10.0.0.1/255.255.255.0 dev eth2
+       
+       - "sysctl -w net.ipv4.ip_forward=1"
+       - "sysctl -w net.ipv6.conf.all.forwarding=1"
+       
+    # PC IPv6only
+    PC1:
+      kind: linux
+      image: docker.io/wbitt/network-multitool:extra
+      exec:
+      - ip -6 route del default dev eth0  
+      - ip -6 addr add 2001:db8::20/64 dev eth1
+      - ip -6 route add default via 2001:db8::1
+    
+    # PC IPv4 only
+    PC2:
+      kind: linux
+      image: docker.io/wbitt/network-multitool:extra
+      exec:
+      - ip -6 route del default dev eth0
+      - ip route del default dev eth0
+      - ip addr add 10.0.0.21/255.255.255.0 dev eth1
+      - ip route add default via 10.0.0.1    
+      
+  links:
+    - endpoints: ["rtinetipv6:eth1", "SRV1:eth1"]
+    - endpoints: ["rtinetipv6:eth2", "SRVSIIT:eth1"]
+    - endpoints: ["SRVSIIT:eth2", "PC2:eth1"]
+    - endpoints: ["rtinetipv6:eth3", "openwrt:eth2"]
+    - endpoints: ["openwrt:eth3", "PC1:eth1"]
+ 
+    
+     
