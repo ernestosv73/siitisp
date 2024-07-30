@@ -28,9 +28,7 @@ topology:
       ports:
         - 8080:80
         - 8443:443
-      exec:
-      - ip -6 route del default dev eth0
-      - ip -6 addr add 2001:db8:aaaa::2/64 dev eth2        
+      
       env:
         USERNAME: root #(default)
         PASSWORD: VR-netlab9 #(default is VR-netlab9)
@@ -87,8 +85,8 @@ topology:
     - endpoints: ["rtinetipv6:eth1", "SRV1:eth1"]
     - endpoints: ["rtinetipv6:eth2", "SRVSIIT:eth1"]
     - endpoints: ["SRVSIIT:eth2", "PC2:eth1"]
-    - endpoints: ["rtinetipv6:eth3", "openwrt:eth2"]
-    - endpoints: ["openwrt:eth3", "PC1:eth1"]
+    - endpoints: ["rtinetipv6:eth3", "openwrt:eth1"]
+    - endpoints: ["openwrt:eth0", "PC1:eth1"]
  
     
      
