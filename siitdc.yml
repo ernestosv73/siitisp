@@ -30,7 +30,7 @@ topology:
         - 8443:443
       exec:  
       - ip route del default dev eth0
-      - ip addr add 192.168.0.1/255.255.255.0 dev eth3
+      - ip addr add 192.168.0.1/255.255.255.0 dev eth2
       
       env:
         USERNAME: root #(default)
@@ -88,8 +88,8 @@ topology:
     - endpoints: ["rtinetipv6:eth1", "SRV1:eth1"]
     - endpoints: ["rtinetipv6:eth2", "SRVSIIT:eth1"]
     - endpoints: ["SRVSIIT:eth2", "PC2:eth1"]
-    - endpoints: ["rtinetipv6:eth3", "openwrt:eth2"]
-    - endpoints: ["openwrt:eth3", "PC1:eth1"]
+    - endpoints: ["rtinetipv6:eth3", "openwrt:eth1"]
+    - endpoints: ["openwrt:eth2", "PC1:eth1"]
  
     
      
