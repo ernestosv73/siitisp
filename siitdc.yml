@@ -28,6 +28,9 @@ topology:
       ports:
         - 8080:80
         - 8443:443
+      exec:  
+      - ip route del default dev eth0
+      - ip addr add 192.168.0.1/255.255.255.0 dev eth3
       
       env:
         USERNAME: root #(default)
