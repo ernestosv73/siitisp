@@ -75,8 +75,8 @@ topology:
       - ip route add default via 192.168.10.1    
       
   links:
-    - endpoints: ["rtinetipv6:eth1", "SRV1:eth1"]
-    - endpoints: ["rtinetipv6:eth2", "SRVSIIT:eth1"]
+    - endpoints: ["rtinetipv6:eth1", "SRVSIIT:eth1"]
+    - endpoints: ["rtinetipv6:eth2", "SRV1:eth1"]
     - endpoints: ["SRVSIIT:eth2", "PC2:eth1"]
     - endpoints: ["rtinetipv6:eth3", "openwrt:eth1"]
     - endpoints: ["openwrt:eth2", "PC1:eth1"]
