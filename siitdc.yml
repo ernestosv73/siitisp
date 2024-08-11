@@ -54,7 +54,7 @@ topology:
        - "sysctl -w net.ipv4.ip_forward=1"
        - "sysctl -w net.ipv6.conf.all.forwarding=1"
        
-    # PC IPv6only
+    # PC IPv46
     PC1:
       kind: linux
       image: docker.io/wbitt/network-multitool:extra
@@ -77,9 +77,9 @@ topology:
   links:
     - endpoints: ["rtinetipv6:eth1", "SRV1:eth1"]
     - endpoints: ["rtinetipv6:eth2", "SRVSIIT:eth1"]
-    - endpoints: ["SRVSIIT:eth2", "PC1:eth1"]
+    - endpoints: ["SRVSIIT:eth2", "PC2:eth1"]
     - endpoints: ["rtinetipv6:eth3", "openwrt:eth1"]
-    - endpoints: ["openwrt:eth2", "PC2:eth1"]
+    - endpoints: ["openwrt:eth2", "PC1:eth1"]
  
     
      
