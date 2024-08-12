@@ -28,7 +28,7 @@ topology:
         # tcp port 22 will be published and accessible to anyone
         - tcp/22
         - tcp/80
-        - tpc/443
+        
 
     # Servidor IPv6
     SRV1:
