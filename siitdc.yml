@@ -10,15 +10,15 @@ topology:
     #  type: ixrd3
     #  startup-config: srlsw/config.json
     # router red ipv6 only
-    rtinetipv6:
-      kind: linux
-      image: quay.io/frrouting/frr:8.4.1
-      binds:
-        - rtinetipv6/daemons:/etc/frr/daemons
-        - rtinetipv6/frr.conf:/etc/frr/frr.conf
-      exec:
-       - "sysctl -w net.ipv6.conf.all.forwarding=1" 
-       - ip -6 route del default dev eth0
+    # rtinetipv6:
+    #  kind: linux
+    #  image: quay.io/frrouting/frr:8.4.1
+    #  binds:
+    #    - rtinetipv6/daemons:/etc/frr/daemons
+    #    - rtinetipv6/frr.conf:/etc/frr/frr.conf
+    #  exec:
+    #   - "sysctl -w net.ipv6.conf.all.forwarding=1" 
+    #   - ip -6 route del default dev eth0
     # CPE 
     openwrt:
       kind: linux
@@ -81,11 +81,11 @@ topology:
       - ip route add default via 192.168.10.1    
       
   links:
-    - endpoints: ["rtinetipv6:eth1", "SRVSIIT:eth1"]
-    - endpoints: ["rtinetipv6:eth2", "SRV1:eth1"]
-    - endpoints: ["SRVSIIT:eth2", "PC2:eth1"]
-    - endpoints: ["rtinetipv6:eth3", "openwrt:eth2"]
     - endpoints: ["openwrt:eth3", "PC1:eth1"]
+    - endpoints: ["openwrt:eth2", "SRVSIIT:eth1"]
+    - endpoints: ["SRVSIIT:eth2", "PC2:eth1"]
+    
+    
  
     
      
