@@ -54,6 +54,7 @@ topology:
        #- ip -6 route add 2001:db8::/64 via 2001:db8:dc::1
 
        - ip addr add 203.0.113.1/255.255.255.0 dev eth2
+       - ip addr add 203.0.113.2/255.255.255.0 dev eth2
        
        - "sysctl -w net.ipv4.ip_forward=1"
        - "sysctl -w net.ipv6.conf.all.forwarding=1"
