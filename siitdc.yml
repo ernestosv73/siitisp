@@ -22,10 +22,16 @@ topology:
     # CPE 
     openwrt:
       kind: linux
-      image: oofnik/openwrt:19.07.7-x86-64
-      #exec:
-      # - ip -6 route del default dev eth0
-      # - ip addr add 192.168.10.10/24 dev eth1
+      image: vrnetlab/vr-openwrt:23.05.3
+      #mgmt-ipv4: 172.20.20.12
+      #mgmt_ipv6: 2001:172:20:20::12
+      ports:
+        - 8080:80
+        - 8443:443
+      env:
+        USERNAME: root #(default)
+        PASSWORD: VR-netlab9 #(default is VR-netlab9)
+        CONNECTION_MODE: tc #(default)
       
         
 
