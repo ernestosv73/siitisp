@@ -87,7 +87,7 @@ topology:
       - ip route add default via 10.0.113.1    
       
   links:
-    - endpoints: ["openwrt:eth3", "PC1:eth1"]
+    - endpoints: ["PC1:eth1", "openwrt:eth3"]
     - endpoints: ["openwrt:eth2", "SRVSIIT:eth1"]
     - endpoints: ["SRVSIIT:eth2", "PC2:eth1"]
     
