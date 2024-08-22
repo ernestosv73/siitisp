@@ -22,16 +22,19 @@ topology:
     # CPE 
     openwrt:
       kind: linux
-      image: vrnetlab/vr-openwrt:23.05.3
+      image: oofnik/openwrt:latest
       #mgmt-ipv4: 172.20.20.12
       #mgmt_ipv6: 2001:172:20:20::12
-      ports:
-        - 8080:80
-        - 8443:443
-      env:
-        USERNAME: root #(default)
-        PASSWORD: VR-netlab9 #(default is VR-netlab9)
-        CONNECTION_MODE: tc #(default)
+      #ports:
+      #  - 8080:80
+      #  - 8443:443
+      #env:
+      #  USERNAME: root #(default)
+      #  PASSWORD: VR-netlab9 #(default is VR-netlab9)
+      #  CONNECTION_MODE: tc #(default)
+      publish:
+        # tcp port 22 will be published and accessible to anyone
+        - tcp/22
       
         
 
@@ -87,8 +90,8 @@ topology:
       - ip route add default via 10.0.113.1    
       
   links:
-    - endpoints: ["PC1:eth1", "openwrt:eth3"]
-    - endpoints: ["openwrt:eth2", "SRVSIIT:eth1"]
+    - endpoints: ["PC1:eth1", "openwrt:eth2"]
+    - endpoints: ["openwrt:eth1", "SRVSIIT:eth1"]
     - endpoints: ["SRVSIIT:eth2", "PC2:eth1"]
     
     
