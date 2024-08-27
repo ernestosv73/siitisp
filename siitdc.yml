@@ -22,22 +22,9 @@ topology:
     # CPE 
     openwrt:
       kind: linux
-      image: oofnik/openwrt:latest
-      #mgmt-ipv4: 172.20.20.12
-      #mgmt_ipv6: 2001:172:20:20::12
-      #ports:
-      #  - 8080:80
-      #  - 8443:443
-      #env:
-      #  USERNAME: root #(default)
-      #  PASSWORD: VR-netlab9 #(default is VR-netlab9)
-      #  CONNECTION_MODE: tc #(default)
-      publish:
-        # tcp port 22 will be published and accessible to anyone
-        - tcp/22
-      
+      image: offnik/openwrt:19.07
+         
         
-
     # Servidor IPv6
     #SRV1:
     #  kind: linux
@@ -91,7 +78,7 @@ topology:
       
   links:
     - endpoints: ["PC1:eth1", "openwrt:eth2"]
-    - endpoints: ["openwrt:eth1", "SRVSIIT:eth1"]
+    - endpoints: ["openwrt:eth3", "SRVSIIT:eth1"]
     - endpoints: ["SRVSIIT:eth2", "PC2:eth1"]
     
     
